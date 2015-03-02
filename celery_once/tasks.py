@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from celery import Task
 # from inspect import getcallargs
+from inspect import getargspec, ismethod
 import sys
 from .helpers import queue_once_key, get_redis, now_unix
 
@@ -125,8 +126,6 @@ class QueueOnce(Task):
         """
         key = self.get_key(args, kwargs)
         self.clear_lock(key)
-
-from inspect import getargspec, ismethod
 
 
 # This is a copy of the inspect.getcallargs() function from Python 2.7
