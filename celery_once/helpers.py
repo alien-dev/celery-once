@@ -40,8 +40,10 @@ def force_string(kwargs):
     Fixes: https://github.com/TrackMaven/celery-once/issues/11
     """
     if isinstance(kwargs, dict):
-        return {
-            force_string(key): force_string(value) for key, value in six.iteritems(kwargs)}
+        aux_dict = {}
+        for key, value in six.iteritems(kwargs):
+            aux_dict[force_string(key)] = force_string(value)
+        return aux_dict
     elif isinstance(kwargs, list):
         return [force_string(element) for element in kwargs]
     elif six.PY2 and isinstance(kwargs, unicode):
@@ -69,7 +71,9 @@ def queue_once_key(name, kwargs, restrict_to=None):
     keys = ['qo', name]
     # Restrict to only the keys allowed in keys.
     if restrict_to is not None:
-        restrict_kwargs = {key: kwargs[key] for key in restrict_to}
+        restrict_kwargs = {}
+        for key in restrict_to:
+            restrict_kwargs[key] = kwargs[key]
         keys += kwargs_to_list(restrict_kwargs)
     else:
         keys += kwargs_to_list(kwargs)
