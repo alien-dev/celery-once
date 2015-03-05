@@ -5,10 +5,10 @@ from setuptools import setup, find_packages
 with open('README.rst') as f:
     readme = f.read()
 
-requirements = [
-    "celery",
-    "redis"
-]
+# requirements = [
+#     "celery",
+#     "redis"
+# ]
 
 setup(
     name='celery_once',
@@ -19,7 +19,7 @@ setup(
     author_email='cam@trackmaven.com',
     url='https://github.com/trackmaven/celery-once',
     packages=find_packages(),
-    install_requires=requirements,
+#   install_requires=requirements,
     license="BSD",
     keywords='celery, mutex, once, lock, redis',
     classifiers=[
